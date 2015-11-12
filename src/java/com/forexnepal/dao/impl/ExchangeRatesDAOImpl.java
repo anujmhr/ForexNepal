@@ -40,8 +40,8 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
     public int insertOrUpdate(ExchangeRates e) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        //session.saveOrUpdate(e);
-        session.save(e);
+        session.saveOrUpdate(e);
+        //session.save(e);
         transaction.commit();
         return 1;
     }
