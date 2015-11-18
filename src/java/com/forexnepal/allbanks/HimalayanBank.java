@@ -24,7 +24,7 @@ class HimalayanBank extends ScrapCommand {
 
     
     
-    ExchangeRates exchangeRates=new ExchangeRates();
+   
 
 
     public HimalayanBank() {
@@ -65,6 +65,7 @@ class HimalayanBank extends ScrapCommand {
            
             //System.out.println(currencyService.getByName("USD"));
             try{
+                 ExchangeRates exchangeRates=new ExchangeRates();
             currency=currencyService.getByName(matcher1.group(1).trim());
             
             exchangeRates.setBankId(bank);
@@ -79,12 +80,12 @@ class HimalayanBank extends ScrapCommand {
                 System.out.println(exchangeRates.getCurrencyId()+":"+exchangeRates.getBuyingRate());
             
              
-                
+                exchangeRatesService.insertOrUpdate(exchangeRates);
             
             }catch(NullPointerException | NumberFormatException ex){
                 System.out.println(ex.getMessage());
             }
-                exchangeRatesService.insertOrUpdate(exchangeRates);
+                
         }
     }
     

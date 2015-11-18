@@ -21,17 +21,17 @@ import java.sql.Time;
  * @author Anuz
  */
 public abstract class ScrapCommand {
-    
+
     protected CurrencyService currencyService;
     protected BankService bankService;
-    protected ExchangeRatesService exchangeRatesService; 
-        
-    
-    
-    
-   
+    protected ExchangeRatesService exchangeRatesService;
+    protected Date date;
+    protected Time time;
+
     public String readURL(String link) throws MalformedURLException, IOException {
+        try{
         URL url = new URL(link);
+
         StringBuilder builder;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
             String line = "";
@@ -41,17 +41,21 @@ public abstract class ScrapCommand {
             }
         }
         return builder.toString();
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
-    
-  public abstract void scrap(String args) throws IOException;
- 
-  public void setService(CurrencyService currencyService, BankService bankService, ExchangeRatesService exchangeRatesService) {
+
+    public abstract void scrap(String args) throws IOException;
+
+    public void setService(CurrencyService currencyService, BankService bankService, ExchangeRatesService exchangeRatesService, Date date, Time time) {
         this.currencyService = currencyService;
         this.bankService = bankService;
         this.exchangeRatesService = exchangeRatesService;
+        this.date = date;
+        this.time = time;
+
     }
-    
-    Date date=new java.sql.Date(new java.util.Date().getTime());
-    Time time=new java.sql.Time(new java.util.Date().getTime());
-  
+
 }

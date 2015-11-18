@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -21,14 +21,15 @@ public class ScrapCommandFactory {
     
     private static HashMap<String,ScrapCommand> initCommands(){
         HashMap<String,ScrapCommand> c=new HashMap();
-        c.put("1", new RastraBank());
-        c.put("2", new HimalayanBank());
-        c.put("3", new NabilBank());
-        c.put("4",new NepalInvestmentBank());
-        c.put("5",new NepalSBIBank());           
-        c.put("6",new NepalBangladeshBank());  
-         c.put("7",new EverestBank());  
-         c.put("8",new MachhapuchchhreBank() );
+        //c.put("1", new RastraBank());
+        c.put("1", new HimalayanBank());
+        c.put("2", new NabilBank());
+        c.put("3",new NepalInvestmentBank());
+        //c.put("5",new NepalSBIBank());           
+        c.put("4",new NepalBangladeshBank());  
+        // c.put("7",new EverestBank());  
+         c.put("5",new MachhapuchchhreBank() );
+         
         return c;
     }
     

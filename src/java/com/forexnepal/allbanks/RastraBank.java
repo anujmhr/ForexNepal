@@ -5,29 +5,28 @@
  */
 package com.forexnepal.allbanks;
 
-import com.forexnepal.service.CurrencyService;
-import com.forexnepal.service.ExchangeRatesService;
+import com.forexnepal.entity.Bank;
+import com.forexnepal.entity.Currency;
+import com.forexnepal.entity.ExchangeRates;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Anuz
  */
 class RastraBank extends ScrapCommand {
-    @Autowired
-    private ExchangeRatesService exchangeRateService;
-    @Autowired
-    private CurrencyService currencyService;
-
+   
     public RastraBank() {
     }
 
     @Override
     public void scrap(String args) throws IOException {
-        String currency;
+        
+        Currency currency;
+        Bank bank=bankService.getByName("Nepal Rastra Bank");
+        
          String URL="http://www.nrb.org.np/fxmexchangerate.php?YY=2015&MM=10&DD=08&B1=Go";
        // String URL="http://www.rbb.com.np/fxrates.php";
        // String link = "https://play.google.com/store/apps/details";
@@ -55,17 +54,33 @@ class RastraBank extends ScrapCommand {
         while (matcher1.find()) {
             //System.out.println("in");
             
-            currency=matcher1.group(4).trim();
+  
             
-            System.out.println(matcher1.group(4).trim()+"\t"+matcher1.group(6)+"\t"+matcher1.group(8)+"\t"+matcher1.group(10));//Rastrabank
-            //System.out.println(matcher1.group(4));
+            //System.out.println(matcher1.group(4).trim()+"\t"+matcher1.group(6)+"\t"+matcher1.group(8)+"\t"+matcher1.group(10));//Rastrabank
+  
+            //System.out.println(matcher1.group(4).replaceAll("[^\\w/i]","").trim());
+            try{
+            ExchangeRates exchangeRates=new ExchangeRates();
+            currency=currencyService.getByName(matcher1.group(4).replaceAll("[^\\w/\\s/i]","").trim());
+                System.out.println(currency);
+            exchangeRates.setBankId(bank);
+            exchangeRates.setCurrencyId(currency);
+            exchangeRates.setUnit(Integer.parseInt(matcher1.group(6).replaceAll("-","0").trim()));
+            exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(10).replaceAll("-", "0").trim()));    
+            exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(8).replaceAll("-", "0").trim()));
+            exchangeRates.setForexDate(date);
             
-            //System.out.println(currency);
-            
-            System.out.println(currencyService.getByName(currency).toString());
+            exchangeRates.setForexTime(time);
            
-            System.out.println("------------------");
+                System.out.println(exchangeRates.toString());
             
+             
+//                exchangeRatesService.insertOrUpdate(exchangeRates);
+            
+            }catch(NullPointerException | NumberFormatException ex){
+                System.out.println(ex.getMessage());
+            }
+                
         }
         
     }

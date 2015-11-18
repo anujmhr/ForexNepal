@@ -39,7 +39,9 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
     @Override
     public int insertOrUpdate(ExchangeRates e) {
         Session session = sessionFactory.openSession();
+        
         Transaction transaction = session.beginTransaction();
+        
         session.saveOrUpdate(e);
         //session.save(e);
         transaction.commit();

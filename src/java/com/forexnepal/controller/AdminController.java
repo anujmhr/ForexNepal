@@ -10,6 +10,8 @@ import com.forexnepal.service.BankService;
 import com.forexnepal.service.CurrencyService;
 import com.forexnepal.service.ExchangeRatesService;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,13 +43,17 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/bank/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/bank/scrap_all", method = RequestMethod.GET)
     public @ResponseBody
-    String scrapBank(@PathVariable("id") String id) throws IOException {
-        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService);
-
-        scrapData.scrapChoice(id);
-
+   // String scrapBank(@PathVariable("id") String id) throws IOException {
+        String scrapBank() throws IOException {
+        Date date = new java.sql.Date(new java.util.Date().getTime());
+        Time time = new java.sql.Time(new java.util.Date().getTime());
+        
+        for(int i=1;i<=5;i++){
+        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
+        scrapData.scrapChoice(i+"");
+        }
         return "success";
     }
 
@@ -65,6 +71,7 @@ public class AdminController {
     public @ResponseBody
     ModelMap currencyByCode(@PathVariable("code") String code) {
         ModelMap mv = new ModelMap();
+
         mv.addAttribute("currencyByCode", currencyService.getByName(code));
 
         return mv;
