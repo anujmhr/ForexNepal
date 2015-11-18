@@ -35,8 +35,8 @@ public class BankService {
     public int insertOrUpdate(Bank b) {
         return bankDAO.insertOrUpdate(b);
     }
-    
    
+    
 
     public int delete(int id) {
         return bankDAO.delete(id);

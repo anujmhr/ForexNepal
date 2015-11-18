@@ -116,15 +116,7 @@ public class Bank implements Serializable {
         this.website = website;
     }
 
-    @XmlTransient
-    public Collection<ExchangeRates> getExchangeRatesCollection() {
-        return exchangeRatesCollection;
-    }
-
-    public void setExchangeRatesCollection(Collection<ExchangeRates> exchangeRatesCollection) {
-        this.exchangeRatesCollection = exchangeRatesCollection;
-    }
-
+   
     @Override
     public int hashCode() {
         int hash = 0;

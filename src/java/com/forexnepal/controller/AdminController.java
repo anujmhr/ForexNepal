@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Anuz
  */
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @Autowired
@@ -43,7 +43,7 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/bank/scrap_all", method = RequestMethod.GET)
+    @RequestMapping(value = "bank/scrap_all", method = RequestMethod.GET)
     public @ResponseBody
    // String scrapBank(@PathVariable("id") String id) throws IOException {
         String scrapBank() throws IOException {
@@ -54,12 +54,12 @@ public class AdminController {
         ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
         scrapData.scrapChoice(i+"");
         }
+        
         return "success";
     }
 
-    @RequestMapping(value = "/admin/all_currency", method = RequestMethod.GET)
-    public @ResponseBody
-    ModelMap allCurrency() {
+    @RequestMapping(value = "all_currency", method = RequestMethod.GET)
+    public @ResponseBody ModelMap allCurrency() {
         ModelMap mv = new ModelMap();
 
         mv.addAttribute("allCurrency", currencyService.getAll());
@@ -67,7 +67,7 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(value = "admin/currency/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "currency/{code}", method = RequestMethod.GET)
     public @ResponseBody
     ModelMap currencyByCode(@PathVariable("code") String code) {
         ModelMap mv = new ModelMap();

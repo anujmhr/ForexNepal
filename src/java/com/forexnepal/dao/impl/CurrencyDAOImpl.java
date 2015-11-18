@@ -42,7 +42,7 @@ public class CurrencyDAOImpl implements CurrencyDAO {
     public Currency getByName(String currency) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("select c from Currency c where c.currencyCode=:currency");// c.currencyCode=:currency or
+        Query query = session.createQuery("select c from Currency c where c.currencyCode=:currency");
 //        System.out.println("currency"+currency);
         return (Currency) query.setParameter("currency", currency).uniqueResult();
         

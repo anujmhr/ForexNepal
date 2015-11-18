@@ -92,15 +92,7 @@ public class Currency implements Serializable {
         this.currencyCode = currencyCode;
     }
 
-    @XmlTransient
-    public Collection<ExchangeRates> getExchangeRatesCollection() {
-        return exchangeRatesCollection;
-    }
-
-    public void setExchangeRatesCollection(Collection<ExchangeRates> exchangeRatesCollection) {
-        this.exchangeRatesCollection = exchangeRatesCollection;
-    }
-
+   
     @Override
     public int hashCode() {
         int hash = 0;

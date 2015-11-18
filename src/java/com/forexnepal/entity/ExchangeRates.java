@@ -67,6 +67,7 @@ public class ExchangeRates implements Serializable {
     @JoinColumn(name = "bank_id", referencedColumnName = "bank_id")
     @ManyToOne(optional = false)
     private Bank bankId;
+    
     @JoinColumn(name = "currency_id", referencedColumnName = "currency_id")
     @ManyToOne(optional = false)
     private Currency currencyId;
@@ -132,7 +133,8 @@ public class ExchangeRates implements Serializable {
     public void setForexTime(Date forexTime) {
         this.forexTime = forexTime;
     }
-
+    
+ 
     public Bank getBankId() {
         return bankId;
     }

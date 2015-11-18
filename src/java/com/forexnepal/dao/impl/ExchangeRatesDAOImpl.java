@@ -27,7 +27,7 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
     @Override
     public List<ExchangeRates> getAll() {
         Session session = sessionFactory.openSession();
-        return session.createQuery("select e from ExchangeRates e").list();
+        return session.createQuery("SELECT e FROM ExchangeRates e").list();
     }
 
     @Override
