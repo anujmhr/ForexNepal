@@ -7,7 +7,10 @@ package com.forexnepal.dao.impl;
 
 import com.forexnepal.dao.ExchangeRatesDAO;
 import com.forexnepal.entity.ExchangeRates;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -23,7 +26,7 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    
     @Override
     public List<ExchangeRates> getAll() {
         Session session = sessionFactory.openSession();
@@ -62,4 +65,38 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<ExchangeRates> getByBank(int bankId) {
+       
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select e from ExchangeRates e where e.bank.bankId=:bankId");
+//        System.out.println("currency"+currency);
+        return query.setParameter("bankId",bankId).list();
+    }
+
+    @Override
+    public List<ExchangeRates> getByCurrency(int currencyId) {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select e from ExchangeRates e where e.currency.currencyId=:currencyId");
+//        System.out.println("currency"+currency);
+        return query.setParameter("currencyId",currencyId).list();
+    }
+
+    @Override
+    public List<ExchangeRates> getByDate(Date date) {
+       Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select e from ExchangeRates e where e.forexDate=:date");
+//        System.out.println("currency"+currency);
+        return query.setParameter("date",date).list();
+        
+    }
+
+    @Override
+    public List<ExchangeRates> getByTime(Time time) {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select e from ExchangeRates e where e.forexTime=:time");
+//        System.out.println("currency"+currency);
+        return query.setParameter("time",time).list();
+    }
+    
 }

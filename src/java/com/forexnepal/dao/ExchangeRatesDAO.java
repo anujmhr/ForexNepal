@@ -6,11 +6,22 @@
 package com.forexnepal.dao;
 
 import com.forexnepal.entity.ExchangeRates;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.List;
 
 /**
  *
  * @author Anuz
  */
 public interface ExchangeRatesDAO extends GenericDAO<ExchangeRates>{
-    
+ 
+     List<ExchangeRates> getByBank(int bankId);
+     List<ExchangeRates> getByCurrency(int currencyId);
+     List<ExchangeRates> getByDate(Date date);
+     List<ExchangeRates> getByTime(Time time);
+     
+     
+     
+     
 }

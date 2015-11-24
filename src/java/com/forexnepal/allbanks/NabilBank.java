@@ -56,15 +56,15 @@ class NabilBank extends ScrapCommand {
 
                     currency = currencyService.getByName(matcher1.group(2).trim());
 
-                    exchangeRates.setBankId(bank);
-                    exchangeRates.setCurrencyId(currency);
+                    exchangeRates.setBank(bank);
+                    exchangeRates.setCurrency(currency);
                     exchangeRates.setUnit(1);
                     exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(8).replaceAll("-", "0").trim()));
                     exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(4).replaceAll("-", "0").trim()));
                     exchangeRates.setForexDate(date);
                     exchangeRates.setForexTime(time);
 
-                    System.out.println(exchangeRates.getCurrencyId() + ":" + exchangeRates.getBuyingRate());
+                    System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
 
                     exchangeRatesService.insertOrUpdate(exchangeRates);
 

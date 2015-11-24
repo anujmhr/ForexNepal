@@ -60,8 +60,6 @@ public class Bank implements Serializable {
     @Size(max = 255)
     @Column(name = "website")
     private String website;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bankId")
-    private Collection<ExchangeRates> exchangeRatesCollection;
 
     public Bank() {
     }

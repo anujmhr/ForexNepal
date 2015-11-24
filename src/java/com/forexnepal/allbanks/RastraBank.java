@@ -63,8 +63,8 @@ class RastraBank extends ScrapCommand {
             ExchangeRates exchangeRates=new ExchangeRates();
             currency=currencyService.getByName(matcher1.group(4).replaceAll("[^\\w/\\s/i]","").trim());
                 System.out.println(currency);
-            exchangeRates.setBankId(bank);
-            exchangeRates.setCurrencyId(currency);
+            exchangeRates.setBank(bank);
+            exchangeRates.setCurrency(currency);
             exchangeRates.setUnit(Integer.parseInt(matcher1.group(6).replaceAll("-","0").trim()));
             exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(10).replaceAll("-", "0").trim()));    
             exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(8).replaceAll("-", "0").trim()));

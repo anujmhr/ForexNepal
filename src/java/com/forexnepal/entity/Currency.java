@@ -52,8 +52,7 @@ public class Currency implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "currency_code")
     private String currencyCode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyId")
-    private Collection<ExchangeRates> exchangeRatesCollection;
+   
 
     public Currency() {
     }

@@ -47,8 +47,8 @@ class MachhapuchchhreBank extends ScrapCommand {
                 ExchangeRates exchangeRates = new ExchangeRates();
                 currency = currencyService.getByName(matcher1.group(2).trim());
 
-                exchangeRates.setBankId(bank);
-                exchangeRates.setCurrencyId(currency);
+                exchangeRates.setBank(bank);
+                exchangeRates.setCurrency(currency);
                 exchangeRates.setUnit(Integer.parseInt(matcher1.group(4).trim()));
                 exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(6).trim()));
                 exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(10).trim()));
@@ -56,7 +56,7 @@ class MachhapuchchhreBank extends ScrapCommand {
 
                 exchangeRates.setForexTime(time);
 
-                System.out.println(exchangeRates.getCurrencyId() + ":" + exchangeRates.getBuyingRate());
+                System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
 
                 exchangeRatesService.insertOrUpdate(exchangeRates);
 

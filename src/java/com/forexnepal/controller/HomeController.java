@@ -8,9 +8,12 @@ package com.forexnepal.controller;
 import com.forexnepal.service.BankService;
 import com.forexnepal.service.CurrencyService;
 import com.forexnepal.service.ExchangeRatesService;
+import java.sql.Date;
+import java.sql.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,6 +50,36 @@ public class HomeController {
         map.addAttribute("allExchangeRates", exchangeRatesService.getAll());
         return map;
     }
+    
+    @RequestMapping(value="/exchange_rates/bank/{bankId}",method = RequestMethod.GET)
+    public @ResponseBody ModelMap ExchangeRatesByBank(@PathVariable (value="bankId") int bankId) {
+        ModelMap map=new ModelMap();
+        map.addAttribute("exchangeRatesByBank", exchangeRatesService.getByBank(bankId));
+        return map;
+    }
+    
+    @RequestMapping(value="/exchange_rates/currency/{currencyId}",method = RequestMethod.GET)
+    public @ResponseBody ModelMap ExchangeRatesByCurrency(@PathVariable (value="currencyId") int currencyId) {
+        ModelMap map=new ModelMap();
+        map.addAttribute("exchangeRatesByCurrency", exchangeRatesService.getByCurency(currencyId));
+        return map;
+    }
+    
+    @RequestMapping(value="/exchange_rates/date/{date}",method = RequestMethod.GET)
+    public @ResponseBody ModelMap ExchangeRatesByDate(@PathVariable (value="date") Date date) {
+        ModelMap map=new ModelMap();
+        map.addAttribute("exchangeRatesByDate", exchangeRatesService.getByDate(date));
+        return map;
+    }
+    
+        @RequestMapping(value="/exchange_rates/time/{time}",method = RequestMethod.GET)
+    public @ResponseBody ModelMap ExchangeRatesByTime(@PathVariable (value="time") Time time) {
+        ModelMap map=new ModelMap();
+        map.addAttribute("exchangeRatesByTime", exchangeRatesService.getByTime(time));
+        return map;
+    }
+    
+    
     
     
 

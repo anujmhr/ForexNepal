@@ -68,8 +68,8 @@ class HimalayanBank extends ScrapCommand {
                  ExchangeRates exchangeRates=new ExchangeRates();
             currency=currencyService.getByName(matcher1.group(1).trim());
             
-            exchangeRates.setBankId(bank);
-            exchangeRates.setCurrencyId(currency);
+            exchangeRates.setBank(bank);
+            exchangeRates.setCurrency(currency);
             exchangeRates.setUnit(Integer.parseInt(matcher1.group(3).replaceAll("-","0").trim()));
             exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(9).replaceAll("-", "0").trim()));    
             exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(5).replaceAll("-", "0").trim()));
@@ -77,7 +77,7 @@ class HimalayanBank extends ScrapCommand {
             
             exchangeRates.setForexTime(time);
            
-                System.out.println(exchangeRates.getCurrencyId()+":"+exchangeRates.getBuyingRate());
+                System.out.println(exchangeRates.getCurrency()+":"+exchangeRates.getBuyingRate());
             
              
                 exchangeRatesService.insertOrUpdate(exchangeRates);

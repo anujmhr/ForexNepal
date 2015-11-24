@@ -66,11 +66,11 @@ public class ExchangeRates implements Serializable {
     private Date forexTime;
     @JoinColumn(name = "bank_id", referencedColumnName = "bank_id")
     @ManyToOne(optional = false)
-    private Bank bankId;
+    private Bank bank;
     
     @JoinColumn(name = "currency_id", referencedColumnName = "currency_id")
     @ManyToOne(optional = false)
-    private Currency currencyId;
+    private Currency currency;
 
     public ExchangeRates() {
     }
@@ -135,20 +135,20 @@ public class ExchangeRates implements Serializable {
     }
     
  
-    public Bank getBankId() {
-        return bankId;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setBankId(Bank bankId) {
-        this.bankId = bankId;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
-    public Currency getCurrencyId() {
-        return currencyId;
+    public Currency getCurrency() {
+        return currency;
     }
 
-    public void setCurrencyId(Currency currencyId) {
-        this.currencyId = currencyId;
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     @Override
