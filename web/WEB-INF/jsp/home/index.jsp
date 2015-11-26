@@ -6,7 +6,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="SITE_URL" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -14,6 +13,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
 
         <style>
             div.bar {
@@ -24,79 +25,69 @@
                 background-color: teal;
 
             }
+            #displayPlot{
+
+            }
         </style>
     </head>
-    <body>
+    <body ng-app="main-app">
+        <div ng-controller="selectBankController">
+            <input type="text" name="byBankId" ng-model="byBankId" >
 
-        <div></div>
+            <input type="button" ng-click="testme()"/>
+            <p></p>
+        </div>
+
+        <div id="displayPlot">
+        </div>
 
 
         <script>
 
-            d3.json("ForexNepal/exchange_rates/bank/6", function (error, data) {
-                if (error)
-                    return console.log(error);
-                //["exchangeRatesByBank"]
-                var arr = Object.keys(data);
 
-                function objectPurifier(selector) {
-                    //console.log(data[arr]);
-                    var result = data[arr]
-                            .map(function (k) {
-//                    var a=Object.keys(k);
-//                    a.forEach(function (d){
-//                        console.log(Object.valueOf(d));    
-//                    })
-//         
-                                //console.log(k["buyingRate"]);
-                                return k[selector];
-                            });
+            var bankId;
+            var app = angular.module("main-app", []);
 
-                    //console.log(result);
-                    return result;
-                }
-
-                var buyingRate = objectPurifier("buyingRate");
-                console.log(buyingRate);
-
-                var sellingRate = objectPurifier("sellingRate");
-                console.log(sellingRate);
+            app.controller("selectBankController", function ($scope) {
 
 
-                console.log(arr);
 
-                var svg = d3.select("body").selectAll("div")
-                        .data(buyingRate, function (d) {
+                $scope.testme = function () {
+
+
+                    d3.json("http://localhost:8080/ForexNepal/exchange_rates/bank/" + $scope.byBankId, function (error, data) {
+                        if (error)
+                            return console.log(error);
+                        var arr = Object.keys(data);
+                        //returns array of selected attribute
+                        function objectPurifier(selector) {
+                            var result = data[arr]
+                                    .map(function (k) {
+                                        return k[selector];//return specific attribute from a row 
+                                    });
+                            return result;
+                        }
+                        //get array of specified selector
+                        var buyingRate = objectPurifier("buyingRate");
+                        //var sellingRate = objectPurifier("sellingRate");
+
+                        var displayChart = d3.select("#displayPlot").selectAll("div");
+
+                        displayChart.remove();//clear existing graph
+                        //create new chart
+                        displayChart.data(buyingRate, function (d) {
                             return d;
                         })
-                        .enter()
-                        .append("div")
-                        .attr("width", 700)
-                        .attr("class", "bar")
-                        .style("height", function (d) {
+                                .enter()
+                                .append("div")
+                                .attr("class", "bar")
+                                .style("height", function (d) {
 
-                            return d + "px";
-                        })
-
-//                var svg = d3.select("body").selectAll("div")
-//                        .data(sellingRate, function (d) {
-//                            return d;
-//                        })
-//                        .enter()
-//                        .append("div")
-//                        .attr("width", 700)
-//                        .attr("class", "bar")
-//                        .style("height", function (d) {
-//
-//                            return d + "px";
-//                        })
-//
-
-
-            });
-
-
-
+                                    return d + "px";
+                                });
+                    });
+                };//end of testme
+            });//end of app.controller
         </script>
     </body>
 

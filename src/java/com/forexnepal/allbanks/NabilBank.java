@@ -26,7 +26,7 @@ class NabilBank extends ScrapCommand {
         Currency currency;
 
         Bank bank = bankService.getByName("Nabil Bank Limited");
-        System.out.println(bank);
+        System.out.println(bank.getBankName());
 
         String URL = "http://www.nabilbank.com/exchange/exchangerate.php";
         // String URL="http://www.rbb.com.np/fxrates.php";
@@ -43,15 +43,15 @@ class NabilBank extends ScrapCommand {
         //<b>(\d)</b></font unit
         pattern1 = Pattern.compile(regex1);
         matcher1 = pattern1.matcher(contentPage1);
-        System.out.println("out");
+        
         while (matcher1.find()) {
 
             //System.out.println("in");
             System.out.println(matcher1.group(2).trim() + "\t" + "1" + "\t" + matcher1.group(4) + "\t" + matcher1.group(8));
             //System.out.println(matcher1.group(4));
-                if (matcher1.group(2).trim().equalsIgnoreCase("")) {
+            if (matcher1.group(2).trim().equalsIgnoreCase("")) {
             } else {
-                try {   
+                try {
                     ExchangeRates exchangeRates = new ExchangeRates();
 
                     currency = currencyService.getByName(matcher1.group(2).trim());
@@ -63,8 +63,6 @@ class NabilBank extends ScrapCommand {
                     exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(4).replaceAll("-", "0").trim()));
                     exchangeRates.setForexDate(date);
                     exchangeRates.setForexTime(time);
-
-                    System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
 
                     exchangeRatesService.insertOrUpdate(exchangeRates);
 

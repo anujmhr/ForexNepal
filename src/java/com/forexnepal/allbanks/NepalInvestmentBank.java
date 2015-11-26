@@ -28,7 +28,7 @@ class NepalInvestmentBank extends ScrapCommand {
         Currency currency;
 
         Bank bank = bankService.getByName("Nepal Investment Bank Limited");
-
+        System.out.println(bank.getBankName());
         String URL = "http://www.nibl.com.np/v2/exchange-rate/default-date-rate.php";
         // String URL="http://www.rbb.com.np/fxrates.php";
         // String link = "https://play.google.com/store/apps/details";
@@ -44,7 +44,7 @@ class NepalInvestmentBank extends ScrapCommand {
         //<b>(\d)</b></font unit
         pattern1 = Pattern.compile(regex1);
         matcher1 = pattern1.matcher(contentPage1);
-        System.out.println("out");
+       
         while (matcher1.find()) {
             //System.out.println("in");
             System.out.println(matcher1.group(2).trim() + "\t1\t" + matcher1.group(3) + "\t" + matcher1.group(5));
@@ -66,7 +66,7 @@ class NepalInvestmentBank extends ScrapCommand {
                     exchangeRates.setForexDate(date);
                     exchangeRates.setForexTime(time);
 
-                    System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
+                    //System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
 
                     exchangeRatesService.insertOrUpdate(exchangeRates);
 

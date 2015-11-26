@@ -25,7 +25,7 @@ class NepalBangladeshBank extends ScrapCommand {
     public void scrap(String args) throws IOException {
         Currency currency;
         Bank bank=bankService.getByName("Nepal Bangladesh Bank Limited");
-        
+        System.out.println(bank.getBankName());
         String URL = "http://www.nbbl.com.np/foreign_exchange_rate";
        // String URL="http://www.rbb.com.np/fxrates.php";
         // String link = "https://play.google.com/store/apps/details";
@@ -41,7 +41,7 @@ class NepalBangladeshBank extends ScrapCommand {
         //<b>(\d)</b></font unit
         pattern1 = Pattern.compile(regex1);
         matcher1 = pattern1.matcher(contentPage1);
-        System.out.println("out");
+        
         while (matcher1.find()) {
             
             //System.out.println(matcher1.group(2).trim() + "\t1\t" + matcher1.group(3) + "\t" + matcher1.group(5));

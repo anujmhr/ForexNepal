@@ -6,6 +6,7 @@
 package com.forexnepal.controller;
 
 import com.forexnepal.allbanks.ScrapData;
+import com.forexnepal.allbanks.ScrapListener;
 import com.forexnepal.service.BankService;
 import com.forexnepal.service.CurrencyService;
 import com.forexnepal.service.ExchangeRatesService;
@@ -45,21 +46,24 @@ public class AdminController {
 
     @RequestMapping(value = "bank/scrap_all", method = RequestMethod.GET)
     public @ResponseBody
-   // String scrapBank(@PathVariable("id") String id) throws IOException {
-        String scrapBank() throws IOException {
+    // String scrapBank(@PathVariable("id") String id) throws IOException {
+    String scrapBank() throws IOException {
         Date date = new java.sql.Date(new java.util.Date().getTime());
         Time time = new java.sql.Time(new java.util.Date().getTime());
-        
         for(int i=1;i<=5;i++){
-        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
-        scrapData.scrapChoice(i+"");
+        ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time,i+"");
+        scrapListener.start();
         }
-        
+//        for(int i=1;i<=5;i++){
+//        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
+//        scrapData.scrapChoice(i+"");
+//        }
         return "success";
     }
 
     @RequestMapping(value = "all_currency", method = RequestMethod.GET)
-    public @ResponseBody ModelMap allCurrency() {
+    public @ResponseBody
+    ModelMap allCurrency() {
         ModelMap mv = new ModelMap();
 
         mv.addAttribute("allCurrency", currencyService.getAll());

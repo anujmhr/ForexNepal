@@ -26,6 +26,7 @@ class MachhapuchchhreBank extends ScrapCommand {
     public void scrap(String args) throws IOException {
         Currency currency;
         Bank bank = bankService.getByName("Machhapuchre Bank Limited");
+        System.out.println(bank.getBankName());
 
         String URL = "http://www.machbank.com/content/forex-detail.html";
         String contentPage1, contentPage2, fullLink, regex1, regex2, regex3;
@@ -34,30 +35,27 @@ class MachhapuchchhreBank extends ScrapCommand {
 
         contentPage1 = readURL(URL);
 
-        regex1 = "<tr class=\"even\">(.*?)<td style=\"text-align:left\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)</tr>";
+        regex1 = "<tr class=\"(.*?)\">(.*?)<td style=\"text-align:left\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)<td align=\"center\">(.*?)</td>(.*?)</tr>";
 
         pattern1 = Pattern.compile(regex1);
         matcher1 = pattern1.matcher(contentPage1);
-        System.out.println("out");
+        
         while (matcher1.find()) {
             //System.out.println("in");
-            System.out.println(matcher1.group(2).trim() + "\t" + matcher1.group(4) + "\t" + matcher1.group(6) + "\t" + matcher1.group(10));//Rastrabank
+            System.out.println(matcher1.group(3).trim() + "\t" + matcher1.group(5) + "\t" + matcher1.group(7) + "\t" + matcher1.group(11));//Rastrabank
             //System.out.println(matcher1.group(4));
             try {
                 ExchangeRates exchangeRates = new ExchangeRates();
-                currency = currencyService.getByName(matcher1.group(2).trim());
+                currency = currencyService.getByName(matcher1.group(3).trim());
 
                 exchangeRates.setBank(bank);
                 exchangeRates.setCurrency(currency);
-                exchangeRates.setUnit(Integer.parseInt(matcher1.group(4).trim()));
-                exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(6).trim()));
-                exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(10).trim()));
+                exchangeRates.setUnit(Integer.parseInt(matcher1.group(5).trim()));
+                exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(7).trim()));
+                exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(11).trim()));
                 exchangeRates.setForexDate(date);
-
                 exchangeRates.setForexTime(time);
-
-                System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
-
+               // System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());
                 exchangeRatesService.insertOrUpdate(exchangeRates);
 
             } catch (NullPointerException ex) {
