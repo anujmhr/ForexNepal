@@ -1,95 +1,139 @@
-<%-- 
-    Document   : index
-    Created on : Nov 18, 2015, 7:41:57 PM
-    Author     : anuz
---%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:set var="SITE_URL" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
-        <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
-        <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
+<%@include file="../include/header.jsp" %>
 
-        <style>
-            div.bar {
-                display: inline-block;
-                width: 20px;
-                height: 75px;  
-                margin-right: 2px;
-                background-color: teal;
 
-            }
-            #displayPlot{
+<body ng-app="main-app">
 
-            }
-        </style>
-    </head>
-    <body ng-app="main-app">
-        <div ng-controller="selectBankController">
-            <input type="text" name="byBankId" ng-model="byBankId" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div ng-controller="currencyController">
+                    <select id="currencySelect" ng-model="byCurrencyId">
+                        <option value="" disabled>Select Currency</option>
+                        <c:forEach var="currency" items="${allCurrency}">
+                            <option value="${currency.currencyId}">${currency.currencyName}</option>
+                        </c:forEach>
 
-            <input type="button" ng-click="testme()"/>
-            <p></p>
+                    </select>
+                    <input type="button" class="btn btn-default" ng-click="displayGraphByCurrency()" value="Display"/>
+
+                    <div id="currencyDisplayPlot">
+                    </div>
+                </div>  <!--end of currencyController-->
+            </div>
+
+            <div class="col-md-6">
+                <div ng-controller="bankController">
+                    <select id="bankSelect" ng-model="byBankId">
+                        <option value="">Select Bank</option>
+                        <c:forEach var="bank" items="${allBank}">
+                            <option value="${bank.bankId}">${bank.bankName}</option>
+                        </c:forEach>
+
+                    </select>
+
+
+
+                    <input type="button" class="btn btn-default" ng-click="displayGraphByBank()" value="Display"/>
+
+                    <div id="bankDisplayPlot">
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="displayPlot">
-        </div>
+
+    </div>
 
 
-        <script>
+    <script>
 
 
-            var bankId;
-            var app = angular.module("main-app", []);
+        var app = angular.module("main-app", []);
+        
+        
 
-            app.controller("selectBankController", function ($scope) {
-
-
-
-                $scope.testme = function () {
-
-
-                    d3.json("http://localhost:8080/ForexNepal/exchange_rates/bank/" + $scope.byBankId, function (error, data) {
-                        if (error)
-                            return console.log(error);
-                        var arr = Object.keys(data);
-                        //returns array of selected attribute
-                        function objectPurifier(selector) {
-                            var result = data[arr]
-                                    .map(function (k) {
-                                        return k[selector];//return specific attribute from a row 
-                                    });
-                            return result;
-                        }
-                        //get array of specified selector
-                        var buyingRate = objectPurifier("buyingRate");
-                        //var sellingRate = objectPurifier("sellingRate");
-
-                        var displayChart = d3.select("#displayPlot").selectAll("div");
-
-                        displayChart.remove();//clear existing graph
-                        //create new chart
-                        displayChart.data(buyingRate, function (d) {
-                            return d;
-                        })
-                                .enter()
-                                .append("div")
-                                .attr("class", "bar")
-                                .style("height", function (d) {
-
-                                    return d + "px";
+        app.controller("currencyController", function ($scope) {
+            $scope.displayGraphByCurrency = function () {
+                d3.json("http://localhost:8080/ForexNepal/exchange_rates/currency/" + $scope.byCurrencyId, function (error, data) {
+                    if (error)
+                        return console.log(error);
+                    var arr = Object.keys(data);
+                    //returns array of selected attribute
+                    function objectPurifier(selector) {
+                        var result = data[arr]
+                                .map(function (k) {
+                                    return k[selector];//return specific attribute from a row 
                                 });
-                    });
-                };//end of testme
-            });//end of app.controller
-        </script>
-    </body>
+                        return result;
+                    }
+                    //get array of specified selector
+                    var buyingRate = objectPurifier("buyingRate");
+                    console.log(buyingRate);
+                    //var sellingRate = objectPurifier("sellingRate");
+                    var scale = d3.scale.linear()
+                            .domain([0, d3.max(buyingRate)])
+                            .range([0,100]);
+
+                    var displayChart = d3.select("#currencyDisplayPlot").selectAll("div");
+
+                    displayChart.remove();//clear existing graph
+                    //create new chart
+                    displayChart.data(buyingRate)
+                            .enter()
+                            .append("div")
+                            .attr("class", "bar")
+                            .style("height", function (d) {
+
+                                return d + "px";
+                            });
+                });
+            };//end of testme
+
+        });
+        app.controller("bankController", function ($scope) {
+            $scope.displayGraphByBank = function () {
+
+
+                d3.json("http://localhost:8080/ForexNepal/exchange_rates/bank/" + $scope.byBankId, function (error, data) {
+                    if (error)
+                        return console.log(error);
+                    var arr = Object.keys(data);
+                    //returns array of selected attribute
+                    function objectPurifier(selector) {
+                        var result = data[arr]
+                                .map(function (k) {
+                                    return k[selector];//return specific attribute from a row 
+                                });
+                        return result;
+                    }
+                    //get array of specified selector
+                    var buyingRate = objectPurifier("buyingRate");
+                    console.log(buyingRate);
+                    //var sellingRate = objectPurifier("sellingRate");
+
+
+                    var scale = d3.scale.linear()
+                            .domain([0, 200])
+                            .range([0, 400]);
+
+                    var displayChart = d3.select("#bankDisplayPlot").selectAll("div");
+
+                    displayChart.remove();//clear existing graph
+                    //create new chart
+                    displayChart.data(buyingRate)
+                            .enter()
+                            .append("div")
+                            .attr("class", "bar")
+                            .style("height", function (d) {
+
+                                return d + "px";
+                            });
+                });
+            };//end of testme
+        });//end of app.controller
+    </script>
+</body>
 
 
 

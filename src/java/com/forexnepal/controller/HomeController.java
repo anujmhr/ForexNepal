@@ -39,7 +39,9 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("home/index");
-
+        mv.addObject("allCurrency", currencyService.getAll());
+        mv.addObject("allBank", bankService.getAll());
+        mv.addObject("allExchangeRates",exchangeRatesService.getAll());
         return mv;
     }
     
