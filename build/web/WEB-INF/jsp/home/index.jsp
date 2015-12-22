@@ -127,7 +127,7 @@
                         return console.log(error);
 
 
-                    
+
 
                     var arr = Object.keys(data);
                     var dataset = data[arr].map(function (d) {
@@ -163,160 +163,156 @@
                     //var buyingRate = objectPurifier("buyingRate");
                     //console.log(buyingRate);
                     //var sellingRate = objectPurifier("sellingRate");
-                    var x = d3.scale.linear()
-                            .domain([d3.min(dataset, function (d) {
-                                    return d.buyingRate;
-                                }), d3.max(dataset, function (d) {
-                                    return d.buyingRate;
-                                })])
-                            .range([0, width]);
-                    
+                    var x = d3.scale.ordinal()
+                            .domain(dataset.map(function (d) {
+                                return d.bank.bankName;
+
+                            }))
+                            .rangeBands([0, width]);
+
 //                    var y = d3.scale.linear()
 //                            .domain([0, dataset.length])
 //                            .range([0, height]);
 
 
-                    var y = d3.scale.ordinal()
-                            .domain(dataset.map(function (d) {
-                                return d.bank.bankName;
+                    var y = d3.scale.linear()
+                            .domain([d3.min(dataset, function (d) {
+                                    return d.buyingRate;
+                                }), d3.max(dataset, function (d) {
+                                    return d.buyingRate;
+                                })])
+                            .range([height, 0]);
 
-                            }))
-                                    .rangeBands([0, height]);
-                            
-                            
+                    var xAxis = d3.svg.axis()
+                            .scale(x)
+                            .orient("bottom")
+                            .ticks(5);
+                    var yAxis = d3.svg.axis()
+                            .scale(y)
+                            .orient("left")
+                            .ticks(5);
 
-//
-                            var xAxis = d3.svg.axis()
-                                    .scale(x)
-                                    .orient("bottom")
-                                    .ticks(5);
-                            var yAxis = d3.svg.axis()
-                                    .scale(y)
-                                    .orient("left")
-                                    .ticks(5);
+                    var currencySVG = d3.select("#currencyPlot").append("svg")
+                            .attr("id", "currencyDisplayPlot")
+                            .attr("width", w)
+                            .attr("height", h);
+                    var chart = currencySVG.append("g")
+                            .classed("display", true)
+                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                            var currencySVG = d3.select("#currencyPlot").append("svg")
-                                    .attr("id", "currencyDisplayPlot")
-                                    .attr("width", w)
-                                    .attr("height", h);
-                            var chart = currencySVG.append("g")
-                                    .classed("display", true)
-                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    function plot(params) {
+                        //console.log(this);
+                        this.selectAll(".bar")
+                                .data(params.data)
+                                .enter()
+                                .append("rect")
+                                .classed("bar", true)
+                                .attr("x", function (d, i) {
+                                    return x(d.bank.bankName);
+                                })
+                                .attr("y", function (d, i) {
+                                    return y(d.buyingRate);
+                                })
+                                .attr("width", function (d, i) {
+                                    return x.rangeBand();
+                                })
+                                .attr("height", function (d, i) {
+                                    return height - y(d.buyingRate);
+                                });
 
-                            function plot(params) {
-                                //console.log(this);
-                                this.selectAll(".bar")
-                                        .data(params.data)
-                                        .enter()
-                                        .append("rect")
-                                        .classed("bar", true)
-                                        .attr("x", 0)
-                                        .attr("y", function (d, i) {
-                                            return y(d.bank.bankName);
-                                        })
-                                        .attr("width", function (d, i) {
-                                            return x(d.buyingRate);
-                                        })
-                                        .attr("height", function (d, i) {
-                                            return y.rangeBand() - 1;
-                                        });
+                        this.selectAll(".bar-label")
+                                .data(params.data)
+                                .enter()
+                                .append("text")
+                                .classed("bar-label", true)
+                                .attr("x", function (d, i) {
+                                    return x(d.bank.bankName);
+                                })
+                                .attr("dx", 0)
+                                .attr("y", function (d, i) {
+                                    return y(d.buyingRate);
+                                })
+                                .text(function (d, i) {
+                                    return d.buyingRate;
+                                });
 
-                                this.selectAll(".bar-label")
-                                        .data(params.data)
-                                        .enter()
-                                        .append("text")
-                                        .classed("bar-label", true)
-                                        .attr("x", function (d, i) {
-                                            return x(d.buyingRate);
-                                        })
-                                        .attr("dx", -4)
-                                        .attr("y", function (d, i) {
-                                            return y(d.bank.bankName);
-                                        })
-                                        .attr("dy", function (d, i) {
-                                            return y.rangeBand() / 1.5;
-                                        })
-                                        .text(function (d, i) {
-                                            return d.buyingRate;
-                                        });
-
-                                this.append("g")
-                                        .classed("x axis", true)
-                                        .attr("transform", "translate(" + 0 + "," + height + ")")
-                                        .call(xAxis);
-                                this.append("g")
-                                        .classed("y axis", true)
-                                        .attr("transform", "translate(0,0)")
-                                        .call(yAxis);
-                                
-                                
-
-                            }
-
-                            plot.call(chart, {
-                                data: dataset
-                            });
+                        this.append("g")
+                                .classed("x axis", true)
+                                .attr("transform", "translate(" + 0 + "," + height + ")")
+                                .call(xAxis);
+                        this.append("g")
+                                .classed("y axis", true)
+                                .attr("transform", "translate(0,0)")
+                                .call(yAxis);
 
 
 
-                            //                    var displayChart = d3.select("#currencyDisplayPlot").selectAll("div");
-                            //
-                            //
-                            //                    displayChart.remove();//clear existing graph
-                            //                    //create new chart
-                            //                    displayChart.data(buyingRate)
-                            //                            .enter()
-                            //                            .append("div")
-                            //                            .attr("class", "bar")
-                            //                            .style("height", function (d) {
-                            //
-                            //                                return d + "px";
-                            //                            });
-                        });
-                    };//end of testme
+                    }
 
+                    plot.call(chart, {
+                        data: dataset
+                    });
+
+
+
+                    //                    var displayChart = d3.select("#currencyDisplayPlot").selectAll("div");
+                    //
+                    //
+                    //                    displayChart.remove();//clear existing graph
+                    //                    //create new chart
+                    //                    displayChart.data(buyingRate)
+                    //                            .enter()
+                    //                            .append("div")
+                    //                            .attr("class", "bar")
+                    //                            .style("height", function (d) {
+                    //
+                    //                                return d + "px";
+                    //                            });
                 });
-                app.controller("bankController", function ($scope) {
-                    $scope.displayGraphByBank = function () {
+            };//end of testme
+
+        });
+        app.controller("bankController", function ($scope) {
+            $scope.displayGraphByBank = function () {
 
 
-                        d3.json("http://localhost:8080/ForexNepal/exchange_rates/bank/" + $scope.byBankId, function (error, data) {
-                            if (error)
-                                return console.log(error);
-                            var arr = Object.keys(data);
-                            //returns array of selected attribute
-                            function objectPurifier(selector) {
-                                var result = data[arr]
-                                        .map(function (k) {
-                                            return k[selector];//return specific attribute from a row 
-                                        });
-                                return result;
-                            }
-                            //get array of specified selector
-                            var buyingRate = objectPurifier("buyingRate");
-                            console.log(buyingRate);
-                            //var sellingRate = objectPurifier("sellingRate");
+                d3.json("http://localhost:8080/ForexNepal/exchange_rates/bank/" + $scope.byBankId, function (error, data) {
+                    if (error)
+                        return console.log(error);
+                    var arr = Object.keys(data);
+                    //returns array of selected attribute
+                    function objectPurifier(selector) {
+                        var result = data[arr]
+                                .map(function (k) {
+                                    return k[selector];//return specific attribute from a row 
+                                });
+                        return result;
+                    }
+                    //get array of specified selector
+                    var buyingRate = objectPurifier("buyingRate");
+                    console.log(buyingRate);
+                    //var sellingRate = objectPurifier("sellingRate");
 
 
-                            var scale = d3.scale.linear()
-                                    .domain([0, 200])
-                                    .range([0, 400]);
+                    var scale = d3.scale.linear()
+                            .domain([0, 200])
+                            .range([0, 400]);
 
-                            var displayChart = d3.select("#bankDisplayPlot").selectAll("div");
+                    var displayChart = d3.select("#bankDisplayPlot").selectAll("div");
 
-                            displayChart.remove();//clear existing graph
-                            //create new chart
-                            displayChart.data(buyingRate)
-                                    .enter()
-                                    .append("div")
-                                    .attr("class", "bar")
-                                    .style("height", function (d) {
+                    displayChart.remove();//clear existing graph
+                    //create new chart
+                    displayChart.data(buyingRate)
+                            .enter()
+                            .append("div")
+                            .attr("class", "bar")
+                            .style("height", function (d) {
 
-                                        return d + "px";
-                                    });
-                        });
-                    };//end of testme
-                });//end of app.controller
+                                return d + "px";
+                            });
+                });
+            };//end of testme
+        });//end of app.controller
     </script>
 </body>
 
