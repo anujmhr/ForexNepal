@@ -5,14 +5,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
-        <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
-        <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
+        <title>ForexNepal</title>
+        <link href="${SITE_URL}/assets/css/custom-css.css" rel="stylesheet" type="text/css"/>
 
         <link href="${SITE_URL}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <link href="${SITE_URL}/assets/css/custom-css.css" rel="stylesheet" type="text/css"/>
+        <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
+
 
     </head>
     <body>

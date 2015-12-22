@@ -6,6 +6,7 @@
 package com.forexnepal.service;
 
 import com.forexnepal.dao.ExchangeRatesDAO;
+import com.forexnepal.entity.Currency;
 import com.forexnepal.entity.ExchangeRates;
 import java.sql.Date;
 import java.sql.Time;
@@ -56,4 +57,20 @@ public class ExchangeRatesService {
         return exchangeRatesDAO.getByTime(time);
     }
 
+    public List<Date> getAllDate() {
+        return exchangeRatesDAO.getAllDate();
+    }
+
+    public List<Time> getAllTime() {
+        return exchangeRatesDAO.getAllTime();
+    }
+
+    public List<ExchangeRates> getByCurrencyDateTime(int currency,Date date, Time time){
+        //System.out.println(currency+""+date+""+time);
+        return exchangeRatesDAO.getByCurrencyDateTime(currency, date, time);
+    }
+    
+    public List<Time> getAllTimeByDate(Date date){
+        return exchangeRatesDAO.getAllTimeByDate(date);
+    }
 }
