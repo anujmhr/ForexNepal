@@ -42,7 +42,11 @@ class MachhapuchchhreBank extends ScrapCommand {
         
         while (matcher1.find()) {
             //System.out.println("in");
-            System.out.println(matcher1.group(3).trim() + "\t" + matcher1.group(5) + "\t" + matcher1.group(7) + "\t" + matcher1.group(11));//Rastrabank
+           int unit =Integer.parseInt(matcher1.group(5).trim());
+           Double buyingRate=(Double.parseDouble(matcher1.group(7).trim())/unit);
+           Double sellingRate=(Double.parseDouble(matcher1.group(11).trim())/unit);
+           
+            System.out.println(matcher1.group(3).trim() + "\t1\t" + buyingRate + "\t" + sellingRate);
             //System.out.println(matcher1.group(4));
             try {
                 ExchangeRates exchangeRates = new ExchangeRates();
@@ -50,9 +54,9 @@ class MachhapuchchhreBank extends ScrapCommand {
 
                 exchangeRates.setBank(bank);
                 exchangeRates.setCurrency(currency);
-                exchangeRates.setUnit(Integer.parseInt(matcher1.group(5).trim()));
-                exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(7).trim()));
-                exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(11).trim()));
+                exchangeRates.setUnit(1);
+                exchangeRates.setBuyingRate(buyingRate);
+                exchangeRates.setSellingRate(sellingRate);
                 exchangeRates.setForexDate(date);
                 exchangeRates.setForexTime(time);
                // System.out.println(exchangeRates.getCurrency() + ":" + exchangeRates.getBuyingRate());

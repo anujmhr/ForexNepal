@@ -42,7 +42,7 @@ class NepalSBIBank extends ScrapCommand {
         System.out.println("out");
         while (matcher1.find()) {
             //System.out.println("in");
-            System.out.println(matcher1.group(2).trim()+"\t"+matcher1.group(4)+"\t"+matcher1.group(6)+"\t"+matcher1.group(10));//Rastrabank
+            System.out.println(matcher1.group(2).trim()+"\t"+matcher1.group(4)+"\t"+matcher1.group(6)+"\t"+matcher1.group(10));
             //System.out.println(matcher1.group(4));
             try{
             System.out.println(currencyService.getByName(matcher1.group(2).trim()).getCurrencyId());

@@ -17,6 +17,7 @@
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
   <context:component-scan base-package="com.forexnepal"/>
     <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"/>
+    <!--<mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>-->
     <mvc:annotation-driven/>
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but

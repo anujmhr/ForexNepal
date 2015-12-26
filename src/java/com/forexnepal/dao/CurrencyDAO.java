@@ -13,6 +13,6 @@ import com.forexnepal.entity.Currency;
  */
 public interface CurrencyDAO extends GenericDAO<Currency>{
 
-   
+   public Currency getByCurrency(String currency);
     
 }

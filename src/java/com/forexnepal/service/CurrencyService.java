@@ -27,8 +27,11 @@ public class CurrencyService {
     public Currency getById(int id) {
         return currencyDAO.getById(id);
     }
-    public Currency getByName(String currency){
+    public Currency getByName(String currency){ //by currency code
         return currencyDAO.getByName(currency);
+    }
+    public Currency getByCurrency(String currency){ //by currency name
+        return currencyDAO.getByCurrency(currency);
     }
 
     public int insertOrUpdate(Currency c) {

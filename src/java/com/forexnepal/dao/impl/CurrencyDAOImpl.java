@@ -47,6 +47,17 @@ public class CurrencyDAOImpl implements CurrencyDAO {
         return (Currency) query.setParameter("currency", currency).uniqueResult();
         
     }
+    
+    @Override
+    public Currency getByCurrency(String currency) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select c from Currency c where lower(c.currencyName) like:currency");
+                
+//        System.out.println("currency"+currency);
+        return (Currency) query.setParameter("currency", currency.toLowerCase()).uniqueResult();
+        
+    }
 
     @Override
     public int insertOrUpdate(Currency c) {

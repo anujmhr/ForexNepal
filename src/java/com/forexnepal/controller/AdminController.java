@@ -43,6 +43,37 @@ public class AdminController {
 
         return mv;
     }
+    
+    @RequestMapping(value = "dashboard",method = RequestMethod.GET)
+    public ModelAndView dashboard() {
+        ModelAndView mv = new ModelAndView("admin/views/dashboard");
+        
+        return mv;
+    }
+    
+     @RequestMapping(value = "banks",method = RequestMethod.GET)
+    public ModelAndView banks() {
+        ModelAndView mv = new ModelAndView("admin/views/banks");
+        
+        return mv;
+    }
+     @RequestMapping(value = "exchangeRates",method = RequestMethod.GET)
+    public ModelAndView exchangeRates() {
+        ModelAndView mv = new ModelAndView("admin/views/exchangeRates");
+        
+        return mv;
+    }
+    
+    @RequestMapping(value = "currency",method = RequestMethod.GET)
+    public ModelAndView currency() {
+        ModelAndView mv = new ModelAndView("admin/views/currency");
+        
+        return mv;
+    }
+    
+    
+    
+    
 
     @RequestMapping(value = "bank/scrap_all", method = RequestMethod.GET)
     public @ResponseBody
@@ -50,10 +81,10 @@ public class AdminController {
     String scrapBank() throws IOException {
         Date date = new java.sql.Date(new java.util.Date().getTime());
         Time time = new java.sql.Time(new java.util.Date().getTime());
-        for(int i=1;i<=5;i++){
-        ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time,i+"");
-        scrapListener.start();
-        }
+      //  for (int i = 1; i <= 6; i++) {
+            ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time, 7 + "");
+            scrapListener.start();
+       // }
 //        for(int i=1;i<=5;i++){
 //        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
 //        scrapData.scrapChoice(i+"");

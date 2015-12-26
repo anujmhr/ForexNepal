@@ -27,9 +27,10 @@ public class ScrapCommandFactory {
         c.put("3",new NepalInvestmentBank());
         //c.put("5",new NepalSBIBank());           
         c.put("4",new NepalBangladeshBank());  
-        // c.put("7",new EverestBank());  
-         c.put("5",new MachhapuchchhreBank() );
-         
+        
+        c.put("5",new MachhapuchchhreBank() );
+         c.put("6",new EverestBank());  
+         c.put("7",new SiddharthaBank());
         return c;
     }
     

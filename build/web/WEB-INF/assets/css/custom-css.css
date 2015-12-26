@@ -8,12 +8,15 @@ and open the template in the editor.
     Author     : anuz
 */
 
+.container{
+    text-align: center;
+}
 #currencyDisplayPlot{
     background-color:#F5F2EB;
         /*#F5F2EB;*/
     border: 1px solid #CCC;
 }
-
+/*
 div.bar {
     display: inline-block;
     width: 20px;
@@ -21,8 +24,7 @@ div.bar {
     margin-right: 2px;
     background-color: teal;
 
-}
-
+}*/
 
 #svglogo{
     width:50px;
@@ -36,13 +38,14 @@ svg .bar{
 }
 
 .bar-label{
-    fill:white;
-    text-anchor:end;
+    fill:black;
+    /*text-anchor:end;*/
 }
 
 .axis line,
 .axis path{
     fill:none;
-    stroke:#000;
+    stroke:#CCC;
+    stroke-widh:1px;
     shape-rendering:crispEdges;
 }

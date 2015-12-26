@@ -47,11 +47,14 @@ class HimalayanBank extends ScrapCommand {
         matcher1 = pattern1.matcher(contentPage1);
         
         while (matcher1.find()) {
-
+            
+            int unit =Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim());
+            Double sellingRate=(Double.parseDouble(matcher1.group(9).replaceAll("-", "0").trim()))/(Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim()));
+            Double buyingRate=(Double.parseDouble(matcher1.group(5).replaceAll("-", "0").trim()))/(Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim()));
             //System.out.println("in");
-            System.out.println(matcher1.group(1).trim() + "\t" + matcher1.group(3) + "\t" + matcher1.group(5) + "\t" + matcher1.group(9));
-            //System.out.println(matcher1.group(4));
-
+            System.out.println(matcher1.group(1).trim() + "\t1\t" + buyingRate + "\t" + sellingRate);
+            
+            
             //System.out.println(currencyService.getByName("USD"));
             try {
                 ExchangeRates exchangeRates = new ExchangeRates();
@@ -59,9 +62,9 @@ class HimalayanBank extends ScrapCommand {
 
                 exchangeRates.setBank(bank);
                 exchangeRates.setCurrency(currency);
-                exchangeRates.setUnit(Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim()));
-                exchangeRates.setSellingRate(Double.parseDouble(matcher1.group(9).replaceAll("-", "0").trim()));
-                exchangeRates.setBuyingRate(Double.parseDouble(matcher1.group(5).replaceAll("-", "0").trim()));
+                exchangeRates.setUnit(1);
+                exchangeRates.setSellingRate(sellingRate);
+                exchangeRates.setBuyingRate(buyingRate);
                 exchangeRates.setForexDate(date);
 
                 exchangeRates.setForexTime(time);
