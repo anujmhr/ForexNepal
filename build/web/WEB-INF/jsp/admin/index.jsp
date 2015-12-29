@@ -8,11 +8,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin</title>
 
+
+
+        <link href="${SITE_URL}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="${SITE_URL}/assets/css/custom-css.css" rel="stylesheet" type="text/css"/>
-        <link href="${SITE_URL}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-
-
-
     </head> 
     <body ng-app="admin">
         <div class="container">
@@ -27,12 +26,12 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="#">
-                            <svg id="svglogo">
-                            <rect x="0"  y="0"  width="20" height="20" fill="rgba(0, 0, 150,0.4)"></rect>
-                            <rect x="5" y="5" width="20" height="20" fill="rgba(0, 150, 0, 0.7)"></rect>
-
-                            </svg>
-
+                            <!--                            <svg id="svglogo">
+                                                        <rect x="0"  y="0"  width="20" height="20" fill="rgba(0, 0, 150,0.4)"></rect>
+                                                        <rect x="5" y="5" width="20" height="20" fill="rgba(0, 150, 0, 0.7)"></rect>
+                            
+                                                        </svg>-->
+                            ForexNepal
                         </a>
 
                     </div>
@@ -50,7 +49,7 @@
 
             </nav>  
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="list-group">
@@ -86,11 +85,13 @@
         </script>
         <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
-        <script src="${SITE_URL}/assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular-route.min.js" type="text/javascript"></script>
-
-
+        <script src="${SITE_URL}/assets/js/angular-resource.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular-animate.min.js" type="text/javascript"></script>
+        
+        
         <script src="${SITE_URL}/assets/js/angular/adminJS/adminScript.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular/adminJS/DashboardController.js" type="text/javascript"></script>       
         <script src="${SITE_URL}/assets/js/angular/adminJS/BankController.js" type="text/javascript"></script>       

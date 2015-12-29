@@ -49,3 +49,7 @@ svg .bar{
     stroke-widh:1px;
     shape-rendering:crispEdges;
 }
+
+#searchBox{
+    padding:20px 0px 60px 0px;
+}

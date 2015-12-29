@@ -73,4 +73,7 @@ public class ExchangeRatesService {
     public List<Time> getAllTimeByDate(Date date){
         return exchangeRatesDAO.getAllTimeByDate(date);
     }
+    public List<Currency> getCurrencyList(){
+        return exchangeRatesDAO.getCurrencyList();
+    }
 }

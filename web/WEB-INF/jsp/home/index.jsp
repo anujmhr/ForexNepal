@@ -1,271 +1,121 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set var="SITE_URL" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>ForexNepal</title>
+        <link href="${SITE_URL}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${SITE_URL}/assets/css/custom-css.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+    </head>
+
+    <body ng-app="main-app">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#currency">
+                            <!--                            <svg id="svglogo">
+                                                        <rect x="0"  y="0"  width="20" height="20" fill="rgba(0, 0, 150,0.4)"></rect>
+                                                        <rect x="5" y="5" width="20" height="20" fill="rgba(0, 150, 0, 0.7)"></rect>
+                            
+                                                        </svg>-->
+                            ForexNepal
+                        </a>
+                    </div>
+
+                </div><!-- /.container-fluid -->
+
+            </nav>
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Currency
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="list-group">
+                                        <a href="#buying_rate" class="list-group-item">CurrencyBuyingRate</a>
+                                        <a href="#selling_rate" class="list-group-item">CurrencySellingRate</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Bank
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="list-group">
+                                        <a href="#bank/buying_rate" class="list-group-item">BanksBuyingRate</a>
+                                        <a href="#bank/selling_rate" class="list-group-item">BanksSellingRate</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-9">
+
+                        <div ng-view="">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <script>
+
+        </script>
+
+        <script src="${SITE_URL}/assets/js/d3/d3.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/jquery.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular-route.min.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular-resource.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular-animate.min.js" type="text/javascript"></script>
 
-<%@include file="../include/header.jsp" %>
 
-<body ng-app="main-app">
 
-    <div class="container">
+        <script src="${SITE_URL}/assets/js/angular/homeJS/homeScript.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Currency/HomeCurrencyController.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Bank/HomeBankController.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Currency/CurrencySellingRates.js" type="text/javascript"></script>
 
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Currency/CurrencyBuyingRates.js" type="text/javascript"></script>
 
-        <div ng-controller="currencyController" id="currencyPlot">
-
-            <select id="currencySelect" ng-model="byCurrencyId" >
-                <option value="" selected disabled>Select Currency</option>
-                <c:forEach var="currency" items="${allCurrency}">
-                    <option value="${currency.currencyId}">${currency.currencyName}</option>
-                </c:forEach>
-
-            </select>
-            <!--ng-change="populateTime(byDate)"--> 
-
-
-            <select  id="currencyDate" ng-model="byDate" ng-change="populateTime(byDate)" >
-
-                <option ng-repeat="date in dateList|orderBy:'-':true" value="{{date}}" selected>
-                    {{date}}
-                <option>
-            </select>
-
-            <select  id="currencyTime" ng-model="byTime" >
-                <option value="" disabled selected>Select Time</option>
-                <option ng-repeat="time in timeList" value="{{time}}" >
-                    {{time}}
-                <option>
-            </select>
-
-
-
-
-            <input type="button" class="btn btn-default" ng-click="displayGraphByCurrency()" value="Display"/>
-
-
-
-
-        </div>  <!--end of currencyController-->
-
-
-
-        <!--        <div ng-controller="bankController">
-                    <select id="bankSelect" ng-model="byBankId">
-                        <option value="">Select Bank</option>
-        <c:forEach var="bank" items="${allBank}">
-            <option value="${bank.bankId}">${bank.bankName}</option>
-        </c:forEach>
-
-    </select>
-
-
-
-    <input type="button" class="btn btn-default" ng-click="displayGraphByBank()" value="Display"/>
-
-
-    <div id="bankDisplayPlot"></div>
-
-</div>-->
-
-    </div>
-
-
-</div>
-
-
-<script>
-
-
-    var app = angular.module("main-app", []);
-
-    app.factory("exchangeRateFactory", function ($http) {
-        var obj = {};
-
-        obj.getAll = function () {
-            $http.get("http://localhost:8080/ForexNepal/exchange_rates")
-                    .then(function (response) {
-                        var allDateList = response.data.exchangeRates;
-                    });
-        };
-
-        obj.getAllDates = function () {
-            return $http.get("http://localhost:8080/ForexNepal/exchange_rates/all_dates");
-
-        };
-
-        return obj;
-    });
-
-    app.controller("currencyController", function ($scope, $http, exchangeRateFactory) {
-
-
-        exchangeRateFactory.getAllDates().then(function (response) {
-            $scope.dateList = response.data.forexDates;
-        });
-
-
-        $scope.populateTime = function (byDate) {
-
-            $http.get("http://localhost:8080/ForexNepal/exchange_rates/time_by_date/" + byDate)
-                    .then(function (response) {
-                        $scope.timeList = response.data.timeByDate;
-                    });
-        };
-
-        $scope.displayGraphByCurrency = function () {
-            var plotGraph = function (dataset) {
-                var w = 700;
-                var h = 400;
-                var margin = {
-                    top: 30,
-                    bottom: 40,
-                    left: 220,
-                    right: 70
-                };
-                var width = w - margin.left - margin.right;
-                var height = h - margin.top - margin.bottom;
-
-
-
-
-                var x = d3.scale.linear()
-                        .domain([d3.min(dataset, function (d) {
-                                return d.buyingRate;
-                            }), d3.max(dataset, function (d) {
-                                return d.buyingRate;
-                            })])
-                        .range([0, width]);
-//                  
-
-                var y = d3.scale.ordinal()
-                        .domain(dataset.map(function (d) {
-                            return d.bank.bankName;
-                        }))
-                        .rangeBands([0, height]);
-                var xAxis = d3.svg.axis()
-                        .scale(x)
-                        .orient("bottom")
-                        .ticks(5);
-                var yAxis = d3.svg.axis()
-                        .scale(y)
-                        .orient("left")
-                        .ticks(5);
-                
-                d3.selectAll("#currencyDisplayPlot").remove();
-                var currencySVG = d3.select("#currencyPlot").append("svg")
-                        .attr("id", "currencyDisplayPlot")
-                        .attr("width", w)
-                        .attr("height", h);
-
-
-                var chart = currencySVG.append("g")
-                        .classed("display", true)
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-                
-                function plot(params) {
-                    x.domain([d3.min(dataset, function (d) {
-                            return d.buyingRate;
-                        }), d3.max(dataset, function (d) {
-                            return d.buyingRate;
-                        })])
-                            .range([0, width]);
-                    y.domain(dataset.map(function (d) {
-                        return d.bank.bankName;
-                    }))
-                            .rangeBands([0, height]);
-
-                    //enter()
-                    this.selectAll(".bar")
-                            .data(params.data)
-                            .enter()
-                            .append("rect")
-                            .classed("bar", true);
-
-                    this.selectAll(".bar-label")
-                            .data(params.data)
-                            .enter()
-                            .append("text")
-                            .classed("bar-label", true);
-
-
-                    //update
-                    this.selectAll(".bar")
-                            .transition()
-                            .duration(400)
-                            .attr("x", 0)
-                            .attr("y", function (d, i) {
-                                return y(d.bank.bankName);
-                            })
-                            .attr("width", function (d, i) {
-                                return x(d.buyingRate);
-                            })
-                            .attr("height", function (d, i) {
-                                return y.rangeBand() - 2;
-                            });
-                    this.selectAll(".bar-label")
-                            .attr("x", function (d, i) {
-                                return x(d.buyingRate);
-                            })
-                            .attr("dx", 4)
-                            .attr("y", function (d, i) {
-                                return y(d.bank.bankName);
-                            })
-                            .attr("dy", function (d, i) {
-                                return y.rangeBand() / 1.5;
-                            })
-                            .text(function (d, i) {
-                                return d.buyingRate;
-                            });
-
-                    //exit()
-                    this.selectAll(".bar")
-                            .data(params.data)
-                            .exit()
-                            .remove();
-
-                    this.selectAll(".bar-label")
-                            .data(params.data)
-                            .exit()
-                            .remove();
-
-
-                    this.append("g")
-                            .classed("x axis", true)
-                            .attr("transform", "translate(" + 0 + "," + height + ")")
-                            .call(xAxis);
-                    this.append("g")
-                            .classed("y axis", true)
-                            .attr("transform", "translate(0,0)")
-                            .call(yAxis);
-
-                }
-
-                plot.call(chart, {
-                    data: dataset
-                });
-            }
-
-            d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.byDate + "/" + $scope.byTime, function (error, data) {
-                if (error)
-                    return console.log(error);
-
-                var arr = Object.keys(data);
-                var dataset = data[arr].map(function (d) {
-                    return d;
-                });
-
-                plotGraph(dataset);
-                
-            });
-
-            //  end of d3.json
-
-
-        }; //display graph by currency
-    });//currencyy controller
-    
-    
-    
-
-</script>
-</body>
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Bank/BankSellingRates.js" type="text/javascript"></script>
+        <script src="${SITE_URL}/assets/js/angular/homeJS/Bank/BankBuyingRates.js" type="text/javascript"></script>
+    </body>
 
 
 

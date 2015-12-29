@@ -122,5 +122,54 @@ public class HomeController {
         map.addAttribute("exchangeRatesByCurrencyDateTime", exchangeRatesService.getByCurrencyDateTime(byCurrencyId, byDate, byTime));
         return map;
     }
+    
+    
+    @RequestMapping(value = "/exchange_rates/currency_list", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap getCurrencyList() {
+        ModelMap map = new ModelMap();
+        map.addAttribute("currencyList", exchangeRatesService.getCurrencyList());
+        return map;
+    }
+    
+     @RequestMapping(value = "currency", method = RequestMethod.GET)
+    public ModelAndView currency() {
+        ModelAndView mv = new ModelAndView("home/views/currency");
+
+        return mv;
+    }
+       @RequestMapping(value = "currency/buying_rate", method = RequestMethod.GET)
+    public ModelAndView currencyBuyingRate() {
+        ModelAndView mv = new ModelAndView("home/views/currencyBuyingRates");
+
+        return mv;
+    }
+     @RequestMapping(value = "currency/selling_rate", method = RequestMethod.GET)
+    public ModelAndView currencySellingRate() {
+        ModelAndView mv = new ModelAndView("home/views/currencySellingRates");
+
+        return mv;
+    }
+       @RequestMapping(value = "bank", method = RequestMethod.GET)
+    public ModelAndView dashboard() {
+        ModelAndView mv = new ModelAndView("home/views/banks");
+
+        return mv;
+    }
+       @RequestMapping(value = "bank/buying_rate", method = RequestMethod.GET)
+    public ModelAndView bankBuyingRate() {
+        ModelAndView mv = new ModelAndView("home/views/bankBuyingRates");
+
+        return mv;
+    }
+     @RequestMapping(value = "bank/selling_rate", method = RequestMethod.GET)
+    public ModelAndView bankSellingRate() {
+        ModelAndView mv = new ModelAndView("home/views/bankSellingRates");
+
+        return mv;
+    }
+    
+ 
 
 }
+

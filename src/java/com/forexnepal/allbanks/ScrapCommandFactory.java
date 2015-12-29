@@ -30,7 +30,7 @@ public class ScrapCommandFactory {
         
         c.put("5",new MachhapuchchhreBank() );
          c.put("6",new EverestBank());  
-         c.put("7",new SiddharthaBank());
+     //    c.put("7",new SiddharthaBank()); add bank name in db
         return c;
     }
     

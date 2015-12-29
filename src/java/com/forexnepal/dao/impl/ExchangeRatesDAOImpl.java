@@ -133,5 +133,14 @@ public class ExchangeRatesDAOImpl implements ExchangeRatesDAO {
                 .setParameter("date", date)
                 .list();
     }
+    
+    @Override
+    public List<Currency> getCurrencyList() {
+        Session session = sessionFactory.openSession();
+        
+        return session.createQuery("select distinct e.currency from ExchangeRates e").list();
+    }
+    
+    
 
 }

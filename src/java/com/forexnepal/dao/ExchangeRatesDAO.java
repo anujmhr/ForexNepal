@@ -25,7 +25,7 @@ public interface ExchangeRatesDAO extends GenericDAO<ExchangeRates>{
      List<Time> getAllTime();
      List<ExchangeRates> getByCurrencyDateTime(int currency,Date date, Time time);
      List<Time> getAllTimeByDate(Date date);
-     
+     List<Currency> getCurrencyList();
      
      
 }

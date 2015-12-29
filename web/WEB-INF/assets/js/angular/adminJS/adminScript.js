@@ -1,7 +1,8 @@
-var admin = angular.module('admin', ['ngRoute']);
-//
+var admin = angular.module('admin', ['ngRoute','ngResource']);
 
-
+admin.config(['$httpProvider', function ($httpProvider) {    
+	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+}]);
 
 admin.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
