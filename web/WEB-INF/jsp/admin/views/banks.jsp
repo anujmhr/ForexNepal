@@ -9,28 +9,28 @@
                 <label class="col-md-2 control-label">Bank Name</label>
                 <div class="col-md-4">
                     <input type="text" class="form-control" name="bankName"
-                           ng-model="bankName" />
+                           ng-model="bank.bankName" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Address</label>
                 <div class="col-md-4">
                     <input type="text" class="form-control" name="address"
-                           ng-model="address" />
+                           ng-model="bank.address" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Contacts</label>
                 <div class="col-md-4">
                     <input type="text" class="form-control" name="contactNo"
-                           ng-model="contactNo" />
+                           ng-model="bank.contactNo" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Website</label>
                 <div class="col-md-4">
                     <input type="text" class="form-control" name="website"
-                           ng-model="website" />
+                           ng-model="bank.website" />
                 </div>
             </div>
             <div class="form-group">								
@@ -71,8 +71,8 @@
             <td>{{bank.website}}
             </td>
             <td>
-                <button class="btn btn-sm btn-primary" ng-click="editRow(bank.bankName)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                <button class="btn btn-sm btn-danger" ng-click="removeRow(bank.bankName)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                <button class="btn btn-sm btn-primary" ng-click="editBank(bank.bankId)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                <button class="btn btn-sm btn-danger" ng-click="removeBank(bank.bankId)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 
 
             </td>

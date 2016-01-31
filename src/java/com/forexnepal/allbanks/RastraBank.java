@@ -50,18 +50,18 @@ class RastraBank extends ScrapCommand {
         
         pattern1 = Pattern.compile(regex1);
         matcher1 = pattern1.matcher(contentPage1);
-        System.out.println("out");
+        //System.out.println("out");
         while (matcher1.find()) {
             //System.out.println("in");
             
   
             
-            //System.out.println(matcher1.group(4).trim()+"\t"+matcher1.group(6)+"\t"+matcher1.group(8)+"\t"+matcher1.group(10));//Rastrabank
+            System.out.println(matcher1.group(4).trim()+"\t"+matcher1.group(6)+"\t"+matcher1.group(8)+"\t"+matcher1.group(10));//Rastrabank
   
-            //System.out.println(matcher1.group(4).replaceAll("[^\\w/i]","").trim());
+
             try{
             ExchangeRates exchangeRates=new ExchangeRates();
-            currency=currencyService.getByName(matcher1.group(4).replaceAll("[^\\w/\\s/i]","").trim());
+            currency=currencyService.getByCurrency(matcher1.group(4).replaceAll("[^\\w/\\s/i]","").trim());
                 System.out.println(currency);
             exchangeRates.setBank(bank);
             exchangeRates.setCurrency(currency);
@@ -72,10 +72,10 @@ class RastraBank extends ScrapCommand {
             
             exchangeRates.setForexTime(time);
            
-                System.out.println(exchangeRates.toString());
+               // System.out.println(exchangeRates.toString());
             
              
-//                exchangeRatesService.insertOrUpdate(exchangeRates);
+                exchangeRatesService.insertOrUpdate(exchangeRates);
             
             }catch(NullPointerException | NumberFormatException ex){
                 System.out.println(ex.getMessage());

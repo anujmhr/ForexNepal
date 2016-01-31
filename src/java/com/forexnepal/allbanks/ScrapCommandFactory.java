@@ -21,16 +21,19 @@ public class ScrapCommandFactory {
     
     private static HashMap<String,ScrapCommand> initCommands(){
         HashMap<String,ScrapCommand> c=new HashMap();
-        //c.put("1", new RastraBank());
+        
         c.put("1", new HimalayanBank());
         c.put("2", new NabilBank());
         c.put("3",new NepalInvestmentBank());
-        //c.put("5",new NepalSBIBank());           
+           
         c.put("4",new NepalBangladeshBank());  
         
         c.put("5",new MachhapuchchhreBank() );
          c.put("6",new EverestBank());  
-     //    c.put("7",new SiddharthaBank()); add bank name in db
+         c.put("7",new SiddharthaBank()); 
+         
+         c.put("8", new RastraBank());
+         c.put("9",new NepalSBIBank());       
         return c;
     }
     

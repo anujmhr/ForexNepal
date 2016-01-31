@@ -15,13 +15,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 /**
  *
  * @author Anuz
  */
 public abstract class ScrapCommand {
-
+    
+    
+    
+            
     protected CurrencyService currencyService;
     protected BankService bankService;
     protected ExchangeRatesService exchangeRatesService;

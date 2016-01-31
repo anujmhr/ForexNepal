@@ -3,9 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/anuz/NetBeansProjects/ForexNepal/web/WEB-INF/assets/js/angular/homeJS/Currency/CurrencyBuyingRates.js</file>
-            <file>file:/home/anuz/NetBeansProjects/ForexNepal/web/WEB-INF/assets/js/angular/homeJS/Currency/HomeCurrencyController.js</file>
-            <file>file:/home/anuz/NetBeansProjects/ForexNepal/web/WEB-INF/jsp/home/index.jsp</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/NabilBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/SiddharthaBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/controller/AdminController.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/NepalInvestmentBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/RastraBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/MachhapuchchhreBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/NepalSBIBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/NepalBangladeshBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/EverestBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/web/WEB-INF/jsp/admin/views/dashboard.jsp</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/allbanks/HimalayanBank.java</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/web/WEB-INF/assets/js/angular/adminJS/DashboardController.js</file>
+            <file>file:/home/anuz/NetBeansProjects/ForexNepal/src/java/com/forexnepal/controller/HomeController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -27,5 +27,31 @@ admin.config(function ($routeProvider, $locationProvider) {
 
 });
 
+admin.factory("adminFactory",function($http){
+   var obj={};
+   obj.getAllBanks=function(){
+     return $http.get("http://localhost:8080/ForexNepal/admin/banks/all_banks");
+   };
+   
+   return obj;
+   
+});
+
+//admin.factory("banksFactory",function($resource){
+//    return $resource('http://localhost:8080/ForexNepal/admin/banks', {}, {
+//        query: { method: 'GET', isArray: true },
+//        create: { method: 'POST' }
+//    });
+//
+//});
+//
+//admin.factory('bankFactory', function ($resource) {
+//    return $resource('http://localhost:8080/ForexNepal/admin/banks/', { id: '@_id' }, {
+//        show: { method: 'GET' },
+//        update: { method: 'PUT', params: {id: '@id'} },
+//        delete: { method: 'DELETE', params: {id: '@id'} }
+//    });
+//}); 
+
 
 

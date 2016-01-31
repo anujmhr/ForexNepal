@@ -5,6 +5,7 @@
  */
 package com.forexnepal.dao;
 
+import com.forexnepal.entity.Bank;
 import com.forexnepal.entity.Currency;
 import com.forexnepal.entity.ExchangeRates;
 import java.sql.Date;
@@ -23,9 +24,13 @@ public interface ExchangeRatesDAO extends GenericDAO<ExchangeRates>{
      List<ExchangeRates> getByTime(Time time);
      List<Date> getAllDate();
      List<Time> getAllTime();
-     List<ExchangeRates> getByCurrencyDateTime(int currency,Date date, Time time);
+     List<ExchangeRates> getByCurrencyDateTime(int currencyId,Date date, Time time);
+      List<ExchangeRates> getByBankDateTime(int bankId,Date date, Time time);
      List<Time> getAllTimeByDate(Date date);
      List<Currency> getCurrencyList();
-     
-     
+     List<Bank> getBankList();
+     Date getLatestDate();
+      Time getLatestTime(Date date);
+      List<ExchangeRates> getExchangeRatesByDateTime(Date date,Time time);
+      List<ExchangeRates> getExchangeRatesByCurrencyBank(int currencyId, int bankId);
 }

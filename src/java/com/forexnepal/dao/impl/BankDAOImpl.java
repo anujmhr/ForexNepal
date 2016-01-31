@@ -29,14 +29,19 @@ public class BankDAOImpl implements BankDAO{
     @Override
     public List<Bank> getAll() {
         Session session = sessionFactory.openSession();
-        return session.createQuery("select b from Bank b").list();
+        List<Bank> allBank= session.createQuery("select b from Bank b").list();
+        session.close();
+        return allBank;
+        
 
     }
 
     @Override
     public Bank getById(int id) {
      Session session=sessionFactory.openSession();
-        return (Bank)session.get(Bank.class,id);
+        Bank bankById= (Bank)session.get(Bank.class,id);
+        session.close();
+        return bankById;
     }
     
 
@@ -46,6 +51,7 @@ public class BankDAOImpl implements BankDAO{
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(b);
         transaction.commit();
+        session.close();
         return 1;
     }
 
@@ -55,6 +61,7 @@ public class BankDAOImpl implements BankDAO{
                 Transaction transaction=session.beginTransaction();
                 session.delete((Bank)session.get(Bank.class,id));
                 transaction.commit();
+                session.close();
                 return 1;
 
     }
@@ -65,7 +72,9 @@ public class BankDAOImpl implements BankDAO{
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select b from Bank b where b.bankName=:bankName");
 //        System.out.println("currency"+currency);
-        return (Bank) query.setParameter("bankName", bankName).uniqueResult();
+        Bank bankByName= (Bank) query.setParameter("bankName", bankName).uniqueResult();
+        session.close();
+        return bankByName;
         
     }
 }

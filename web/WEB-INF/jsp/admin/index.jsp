@@ -37,14 +37,14 @@
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!--                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="#">Currency </a></li>
                             <li><a href="#">Bank</a></li>
 
                         </ul>
 
-                    </div><!-- /.navbar-collapse -->
+                    </div> /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
 
             </nav>  
@@ -90,7 +90,7 @@
         <script src="${SITE_URL}/assets/js/angular-route.min.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular-resource.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular-animate.min.js" type="text/javascript"></script>
-        
+        <script src="${SITE_URL}/assets/js/moment.min.js" type="text/javascript"></script>
         
         <script src="${SITE_URL}/assets/js/angular/adminJS/adminScript.js" type="text/javascript"></script>
         <script src="${SITE_URL}/assets/js/angular/adminJS/DashboardController.js" type="text/javascript"></script>       

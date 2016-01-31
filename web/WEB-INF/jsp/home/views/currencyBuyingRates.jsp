@@ -8,18 +8,16 @@
                 {{currency.currencyName}}
             <option>
         </select>
-        <!--ng-change="populateTime(byDate)"--> 
 
-
-        <select  class="currencyDate" ng-model="byDate" ng-change="populateTime(byDate)" >
-
-            <option ng-repeat="date in dateList|orderBy:'-':true" value="{{date}}" selected>
+        <select  class="currencyDate" ng-change="populateTime(byDate)"  ng-model="byDate"  >
+            <option value="" selected >Select Date</option>
+            <option ng-repeat="date in dateList|orderBy:'+':true" value="{{date}}">
                 {{date}}
             <option>
         </select>
 
         <select  class="currencyTime" ng-model="byTime" >
-            <option value="" disabled selected>Select Time</option>
+            <option value=""  selected>Select Time</option>
             <option ng-repeat="time in timeList" value="{{time}}" >
                 {{time}}
             <option>

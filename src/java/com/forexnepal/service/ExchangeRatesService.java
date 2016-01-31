@@ -6,6 +6,7 @@
 package com.forexnepal.service;
 
 import com.forexnepal.dao.ExchangeRatesDAO;
+import com.forexnepal.entity.Bank;
 import com.forexnepal.entity.Currency;
 import com.forexnepal.entity.ExchangeRates;
 import java.sql.Date;
@@ -65,9 +66,13 @@ public class ExchangeRatesService {
         return exchangeRatesDAO.getAllTime();
     }
 
-    public List<ExchangeRates> getByCurrencyDateTime(int currency,Date date, Time time){
+    public List<ExchangeRates> getByCurrencyDateTime(int currencyId,Date date, Time time){
         //System.out.println(currency+""+date+""+time);
-        return exchangeRatesDAO.getByCurrencyDateTime(currency, date, time);
+        return exchangeRatesDAO.getByCurrencyDateTime(currencyId, date, time);
+    }
+     public List<ExchangeRates> getByBankDateTime(int bankId,Date date, Time time){
+        //System.out.println(currency+""+date+""+time);
+        return exchangeRatesDAO.getByBankDateTime(bankId, date, time);
     }
     
     public List<Time> getAllTimeByDate(Date date){
@@ -76,4 +81,20 @@ public class ExchangeRatesService {
     public List<Currency> getCurrencyList(){
         return exchangeRatesDAO.getCurrencyList();
     }
+    public List<Bank> getBankList(){
+        return exchangeRatesDAO.getBankList();
+    }
+    public Date getLatestDate(){
+     return exchangeRatesDAO.getLatestDate();
+    }
+    
+    public Time getLatestTime(Date date){
+        return exchangeRatesDAO.getLatestTime(date);
+    }
+    public List<ExchangeRates> getExchangeRatesByDateTime(Date date,Time time){
+        return exchangeRatesDAO.getExchangeRatesByDateTime(date, time);
+    }
+     public List<ExchangeRates> getExchangeRatesByCurrencyBank(int currencyId, int bankId){
+         return exchangeRatesDAO.getExchangeRatesByCurrencyBank(currencyId, bankId);
+     }
 }

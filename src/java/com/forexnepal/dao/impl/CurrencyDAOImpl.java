@@ -28,13 +28,18 @@ public class CurrencyDAOImpl implements CurrencyDAO {
     @Override
     public List<Currency> getAll() {
         Session session = sessionFactory.openSession();
-        return session.createQuery("select c from Currency c").list();
+        List<Currency> allCurrency = session.createQuery("select c from Currency c").list();
+        session.close();
+        return allCurrency;
+
     }
 
     @Override
     public Currency getById(int id) {
         Session session = sessionFactory.openSession();
-        return (Currency) session.get(Currency.class, id);
+        Currency currencyById = (Currency) session.get(Currency.class, id);
+        session.close();
+        return currencyById;
 
     }
 
@@ -43,20 +48,19 @@ public class CurrencyDAOImpl implements CurrencyDAO {
 
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select c from Currency c where c.currencyCode=:currency");
-//        System.out.println("currency"+currency);
-        return (Currency) query.setParameter("currency", currency).uniqueResult();
-        
+        Currency currencyByName = (Currency) query.setParameter("currency", currency).uniqueResult();
+        session.close();
+        return currencyByName;
     }
-    
+
     @Override
     public Currency getByCurrency(String currency) {
 
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select c from Currency c where lower(c.currencyName) like:currency");
-                
-//        System.out.println("currency"+currency);
-        return (Currency) query.setParameter("currency", currency.toLowerCase()).uniqueResult();
-        
+        Currency currencyByCurrency= (Currency) query.setParameter("currency", currency.toLowerCase()).uniqueResult();
+        session.close();
+        return currencyByCurrency;
     }
 
     @Override
@@ -65,6 +69,7 @@ public class CurrencyDAOImpl implements CurrencyDAO {
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(c);
         transaction.commit();
+        session.close();
         return 1;
     }
 
@@ -74,9 +79,9 @@ public class CurrencyDAOImpl implements CurrencyDAO {
         Transaction transaction = session.beginTransaction();
         session.delete((Currency) session.get(Currency.class, id));
         transaction.commit();
+        session.close();
         return 1;
 
     }
-    
 
 }

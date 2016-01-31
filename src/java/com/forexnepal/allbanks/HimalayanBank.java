@@ -48,10 +48,11 @@ class HimalayanBank extends ScrapCommand {
         
         while (matcher1.find()) {
             
-            int unit =Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim());
+            int unit =Integer.parseInt(matcher1.group(3).replaceAll("-", "1").trim());
             Double sellingRate=(Double.parseDouble(matcher1.group(9).replaceAll("-", "0").trim()))/(Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim()));
             Double buyingRate=(Double.parseDouble(matcher1.group(5).replaceAll("-", "0").trim()))/(Integer.parseInt(matcher1.group(3).replaceAll("-", "0").trim()));
             //System.out.println("in");
+            
             System.out.println(matcher1.group(1).trim() + "\t1\t" + buyingRate + "\t" + sellingRate);
             
             

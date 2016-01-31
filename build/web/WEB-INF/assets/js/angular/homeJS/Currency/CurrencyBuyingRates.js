@@ -10,6 +10,23 @@ home.controller("CurrencyBuyingRates", function ($scope, $http, exchangeRateFact
     });
 
 
+    $http.get("http://localhost:8080/ForexNepal/exchange_rates/latest_date").then(function (response) {
+
+        var latestDate = response.data.latestDate;
+
+        $http.get("http://localhost:8080/ForexNepal/exchange_rates/latest_time/" + latestDate).then(function (response) {
+            var latestTime = response.data.latestTime;
+            $scope.latestDate = latestDate;
+            $scope.latestTime = latestTime;
+//            console.log($scope.latestDate + "," + $scope.latestTime);
+        });
+
+
+
+    });
+
+
+
     $scope.populateTime = function (byDate) {
 
         $http.get("http://localhost:8080/ForexNepal/exchange_rates/time_by_date/" + byDate)
@@ -19,6 +36,8 @@ home.controller("CurrencyBuyingRates", function ($scope, $http, exchangeRateFact
     };
 
     $scope.displayGraphByCurrency = function () {
+
+
         var plotGraph = function (dataset) {
             var w = 700;
             var h = 400;
@@ -153,18 +172,39 @@ home.controller("CurrencyBuyingRates", function ($scope, $http, exchangeRateFact
             });
         }
 
-        d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.byDate + "/" + $scope.byTime, function (error, data) {
-            if (error)
-                return console.log(error);
 
-            var arr = Object.keys(data);
-            var dataset = data[arr].map(function (d) {
-                return d;
+       // console.log($scope.byDate === undefined ? "abc" : "xyz");
+
+        if ($scope.byDate === undefined || $scope.byDate === undefined) {
+                    d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.latestDate + "/" + $scope.latestTime, function (error, data) {
+                        if (error)
+                            return console.log(error);
+
+                        var arr = Object.keys(data);
+                        var dataset = data[arr].map(function (d) {
+                            console.log(d);             
+                            return d;
+                        });
+
+                        plotGraph(dataset);
+
+                    });
+        } else {
+
+            d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.byDate + "/" + $scope.byTime, function (error, data) {
+                if (error)
+                    return console.log(error);
+
+                var arr = Object.keys(data);
+                var dataset = data[arr].map(function (d) {
+                    return d;
+                });
+
+                plotGraph(dataset);
+
             });
+        }
 
-            plotGraph(dataset);
-
-        });
 
         //  end of d3.json
 

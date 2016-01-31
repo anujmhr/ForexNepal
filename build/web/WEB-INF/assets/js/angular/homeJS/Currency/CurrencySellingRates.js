@@ -9,6 +9,20 @@ home.controller("CurrencySellingRates", function ($scope, $http, exchangeRateFac
         $scope.dateList = response.data.forexDates;
     });
 
+ $http.get("http://localhost:8080/ForexNepal/exchange_rates/latest_date").then(function (response) {
+
+        var latestDate = response.data.latestDate;
+
+        $http.get("http://localhost:8080/ForexNepal/exchange_rates/latest_time/" + latestDate).then(function (response) {
+            var latestTime = response.data.latestTime;
+            $scope.latestDate = latestDate;
+            $scope.latestTime = latestTime;
+//            console.log($scope.latestDate + "," + $scope.latestTime);
+        });
+
+
+
+    });
 
     $scope.populateTime = function (byDate) {
 
@@ -153,18 +167,34 @@ home.controller("CurrencySellingRates", function ($scope, $http, exchangeRateFac
             });
         }
 
-        d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.byDate + "/" + $scope.byTime, function (error, data) {
-            if (error)
-                return console.log(error);
+        if ($scope.byDate === undefined || $scope.byDate === undefined) {
+            d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.latestDate + "/" + $scope.latestTime, function (error, data) {
+                if (error)
+                    return console.log(error);
 
-            var arr = Object.keys(data);
-            var dataset = data[arr].map(function (d) {
-                return d;
+                var arr = Object.keys(data);
+                var dataset = data[arr].map(function (d) {
+                    return d;
+                });
+
+                plotGraph(dataset);
+
             });
+        } else {
 
-            plotGraph(dataset);
+            d3.json("http://localhost:8080/ForexNepal/exchange_rates/" + $scope.byCurrencyId + "/" + $scope.byDate + "/" + $scope.byTime, function (error, data) {
+                if (error)
+                    return console.log(error);
 
-        });
+                var arr = Object.keys(data);
+                var dataset = data[arr].map(function (d) {
+                    return d;
+                });
+
+                plotGraph(dataset);
+
+            });
+        }
 
         //  end of d3.json
 

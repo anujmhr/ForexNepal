@@ -118,8 +118,17 @@ public class HomeController {
     public @ResponseBody
     ModelMap ExchangeRatesByCurrencyDateTime(@PathVariable(value = "byCurrencyId") int byCurrencyId, @PathVariable(value = "byDate") Date byDate, @PathVariable(value = "byTime") Time byTime) {
         ModelMap map = new ModelMap();
-        System.out.println(byCurrencyId + "" + byDate + "" + byTime);
+        //System.out.println(byCurrencyId + "" + byDate + "" + byTime);
         map.addAttribute("exchangeRatesByCurrencyDateTime", exchangeRatesService.getByCurrencyDateTime(byCurrencyId, byDate, byTime));
+        return map;
+    }
+    
+    @RequestMapping(value = "/exchange_rates/bank/{byBankId}/{byDate}/{byTime}", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap ExchangeRatesByBankDateTime(@PathVariable(value = "byBankId") int byBankId, @PathVariable(value = "byDate") Date byDate, @PathVariable(value = "byTime") Time byTime) {
+        ModelMap map = new ModelMap();
+        //System.out.println(byCurrencyId + "" + byDate + "" + byTime);
+        map.addAttribute("exchangeRatesByBankDateTime", exchangeRatesService.getByBankDateTime(byBankId, byDate, byTime));
         return map;
     }
     
@@ -168,8 +177,37 @@ public class HomeController {
 
         return mv;
     }
-    
- 
+    @RequestMapping(value = "exchange_rates/latest_date",method = RequestMethod.GET)
+    public @ResponseBody ModelMap getLatestDate(){
+        ModelMap map = new ModelMap();
 
+        map.addAttribute("latestDate", exchangeRatesService.getLatestDate());
+        return map;
+    }
+     @RequestMapping(value = "exchange_rates/latest_time/{byDate}",method = RequestMethod.GET)
+    public @ResponseBody ModelMap getLatestTime(@PathVariable(value = "byDate") Date byDate){
+        ModelMap map = new ModelMap();
+
+        map.addAttribute("latestTime", exchangeRatesService.getLatestTime(byDate));
+        return map;
+    }
+    
+    @RequestMapping(value = "/exchange_rates/bank_list", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap getBankList() {
+        ModelMap map = new ModelMap();
+        map.addAttribute("bankList", exchangeRatesService.getBankList());
+        return map;
+    }
+    
+    @RequestMapping(value = "/exchange_rates/{currencyId}/{bankId}", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap ExchangeRtaesByCurrencyBank(@PathVariable(value = "currencyId") int currencyId, @PathVariable(value = "bankId") int bankId) {
+        ModelMap map = new ModelMap();
+        map.addAttribute("trendCurrencyBank", exchangeRatesService.getExchangeRatesByCurrencyBank(currencyId, bankId));
+        return map;
+    }
+ 
+  
 }
 

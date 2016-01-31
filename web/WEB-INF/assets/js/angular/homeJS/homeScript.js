@@ -31,28 +31,21 @@ home.config(function ($routeProvider) {
 
 });
 
- home.factory("exchangeRateFactory", function ($http) {
-                        var obj = {};
+home.factory("exchangeRateFactory", function ($http) {
+    var obj = {};
+ 
+    obj.getBankList=function(){
+        return $http.get("http://localhost:8080/ForexNepal/exchange_rates/bank_list");
+    };
+    obj.getCurrencyList = function () {
+        return $http.get("http://localhost:8080/ForexNepal/exchange_rates/currency_list");
 
+    };
 
-                        obj.getCurrencyList = function () {
-                            return $http.get("http://localhost:8080/ForexNepal/exchange_rates/currency_list");
+    obj.getAllDates = function () {
+        return $http.get("http://localhost:8080/ForexNepal/exchange_rates/all_dates");
+    };
 
-                        };
-
-                        //        obj.getAll = function () {
-                        //            $http.get("http://localhost:8080/ForexNepal/exchange_rates")
-                        //                    .then(function (response) {
-                        //                        var allDateList = response.data.exchangeRates;
-                        //
-                        //                    });
-                        //        };
-
-                        obj.getAllDates = function () {
-                            return $http.get("http://localhost:8080/ForexNepal/exchange_rates/all_dates");
-
-                        };
-
-                        return obj;
-                    });
+    return obj;
+});
 

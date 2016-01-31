@@ -5,17 +5,15 @@
  */
 package com.forexnepal.controller;
 
-import com.forexnepal.allbanks.ScrapData;
 import com.forexnepal.allbanks.ScrapListener;
 import com.forexnepal.entity.Bank;
 import com.forexnepal.service.BankService;
 import com.forexnepal.service.CurrencyService;
 import com.forexnepal.service.ExchangeRatesService;
-import com.google.gson.Gson;
-import java.io.Console;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import javafx.scene.media.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -64,19 +62,19 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "saveBank", method = RequestMethod.POST)
-    public String addBank(String bank) {
-        System.out.println("here"+bank);
-        Gson gson = new Gson();
-        String jsonBank = gson.toJson(bank);
-
-        System.out.println(jsonBank);
-        //bankService.insertOrUpdate(bank);
+    @RequestMapping(value = "banks/save_bank", method = RequestMethod.POST)
+    public @ResponseBody String addBank(Bank bank) {
+        System.out.println(bank.getBankName());
+//        System.out.println("here" + bank.getBankName());
+       // Gson gson = new Gson();
+//        String jsonBank = gson.toJson(bank);
+//
+//        System.out.println(jsonBank);
+//        bankService.insertOrUpdate(bank);
         return "success";
-
     }
 
-    @RequestMapping(value = "all_banks", method = RequestMethod.GET)
+    @RequestMapping(value = "banks/all_banks", method = RequestMethod.GET)
     public @ResponseBody
     ModelMap allBanks() {
         ModelMap mv = new ModelMap();
@@ -103,18 +101,22 @@ public class AdminController {
     @RequestMapping(value = "bank/scrap_all", method = RequestMethod.GET)
     public @ResponseBody
     // String scrapBank(@PathVariable("id") String id) throws IOException {
-    String scrapBank() throws IOException {
+    ModelMap scrapBank() throws IOException {
         Date date = new java.sql.Date(new java.util.Date().getTime());
         Time time = new java.sql.Time(new java.util.Date().getTime());
-        //  for (int i = 1; i <= 6; i++) {
-        ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time, 7 + "");
-        scrapListener.start();
-        // }
-//        for(int i=1;i<=5;i++){
-//        ScrapData scrapData = new ScrapData(currencyService, bankService, exchangeRatesService,date,time);
-//        scrapData.scrapChoice(i+"");
-//        }
-        return "success";
+        for (int i = 1; i <= 9; i++) {
+            ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time, i + "");
+            scrapListener.start();
+        }
+        
+//           ScrapListener scrapListener = new ScrapListener(currencyService, bankService, exchangeRatesService, date, time, 9+"");
+//           scrapListener.start();
+        ModelMap map=new ModelMap();
+        map.addAttribute("date", date);
+        map.addAttribute("time", time);
+        map.addAttribute("message", "Success");
+       
+        return map;
     }
 
     @RequestMapping(value = "all_currency", method = RequestMethod.GET)
